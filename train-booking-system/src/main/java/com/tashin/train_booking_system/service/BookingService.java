@@ -27,6 +27,7 @@ public class BookingService {
     private final SeatRepository seatRepository;
 
     private final StationRepository stationRepository;
+    private final FareService fareService;
 
     private boolean overlap(
 
@@ -82,6 +83,10 @@ public class BookingService {
             }
         }
 
+        BigDecimal price = fareService.calculateFare(
+                origin.getStationOrder(),
+                destination.getStationOrder());
+
         Booking booking = Booking.builder()
 
                 .seat(seat)
@@ -96,7 +101,7 @@ public class BookingService {
 
                 .status("CONFIRMED")
 
-                .price(BigDecimal.ZERO)
+                .price(price)
 
                 .build();
 
