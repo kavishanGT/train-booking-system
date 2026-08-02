@@ -52,7 +52,7 @@ public class BookingService {
     @Transactional
     public void createBooking(BookingRequest request) {
 
-        Seat seat = seatRepository.lockSeat(request.getSeatId())
+        Seat seat = seatRepository.findById(request.getSeatId())
 
                 .orElseThrow();
 
